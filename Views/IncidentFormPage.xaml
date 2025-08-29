@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TaskC.Views.IncidentFormPage"
+             Title="Create Incident">
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="Incident Title"/>
+            <Entry Placeholder="Short summary"
+                Text="{Binding Model.Title}"/>
+
+
+            <Label Text="Description"/>
+            <Editor Placeholder="What happened?"
+                AutoSize="TextChanges"
+                HeightRequest="120"
+                Text="{Binding Model.Description}"/>
+
+
+            <Label Text="Priority"/>
+            <Picker Title="Select priority"
+                ItemsSource="{Binding Priorities}"
+                SelectedItem="{Binding Model.Priority}"/>
+
+
+            <Button Text="Submit" Command="{Binding SubmitCommand}"/>
+            <Label Text="{Binding StatusMessage}" TextColor="Gray"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
