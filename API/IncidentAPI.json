@@ -1,0 +1,172 @@
+{
+  "uuid": "712ff1d9-6f9f-4efa-9cdd-1d13630800b6",
+  "lastMigration": 33,
+  "name": "Test",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "de22e8be-a0d4-4171-91f1-52bbd1ef229c",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "incidents",
+      "responses": [
+        {
+          "uuid": "3bd6c565-ca45-49cf-ba8c-9f835c4e6c39",
+          "body": "{\n  \"incidentTitle\": \"{{faker 'company.buzzPhrase'}}\",\n  \"incidentDescription\": \"{{faker 'lorem.sentence'}}\",\n  \"incidentPriority\": \"{{oneOf 'low' 'medium' 'high'}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "005d1852-1e6b-406d-a870-fa233c659394",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "incidents",
+      "responses": [
+        {
+          "uuid": "aa33529b-f330-4d0f-a15b-34951e49b39e",
+          "body": "",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Created",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "incidentSchema",
+              "invert": false,
+              "operator": "valid_json_schema"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "17e7821b-d6a5-427b-96c2-9ba6368a3ec5",
+          "body": "Error",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "",
+              "value": "",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "de22e8be-a0d4-4171-91f1-52bbd1ef229c"
+    },
+    {
+      "type": "route",
+      "uuid": "005d1852-1e6b-406d-a870-fa233c659394"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [
+    {
+      "uuid": "9dc24570-f254-4a16-ac87-d1b25a9104d6",
+      "id": "rhxm",
+      "name": "incidentSchema",
+      "documentation": "",
+      "value": "{\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"incident_title\": { \"type\": \"integer\" },\r\n    \"incident_description\": { \"type\": \"string\", \"minLength\": 1 },\r\n    \"incident_priority\": { \"type\": \"string\", \"minLength\": 1 }\r\n  },\r\n  \"required\": [\"incident_title\", \"incident_description\", \"incident_priority\"],\r\n  \"additionalProperties\": false\r\n}"
+    }
+  ],
+  "callbacks": []
+}
